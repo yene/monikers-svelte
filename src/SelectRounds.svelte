@@ -9,7 +9,7 @@ let rounds = [
   {title: 'Hands', desc: 'Only use your hands.', checked: true},
   {title: 'Noise', desc: 'No words, no movement, \njust a singular noise.', checked: true},
 ];
-let selectedRound = null;
+let selectedRound = rounds[0];
 
 function showModalFor(round) {
   selectedRound = round;
