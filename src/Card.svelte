@@ -6,7 +6,7 @@ export let Points;
 
 </script>
 
-<div class="card">
+<div class="card" class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
   <h1>{Person}</h1>
   <p>{Text}</p>
   <div class="line"></div>
@@ -20,6 +20,35 @@ export let Points;
 <style>
   :host {
     margin: 10px;
+  }
+
+  .green .genre {
+    color: #54b899;
+  }
+
+  .green .points {
+    background-color: #54b899;
+  }
+
+  .blue .genre {
+    color: #15ace5;
+  }
+  .blue .points {
+    background: #15ace5;
+  }
+
+  .violet .genre {
+    color: #8f66a5;
+  }
+  .violet .points {
+    background: #8f66a5;
+  }
+
+  .red .genre {
+    color: #e84735;
+  }
+  .red .points {
+    background: #e84735;
   }
 
   .card {
@@ -62,7 +91,7 @@ export let Points;
     bottom: 70px;
     left: 20px;
     width: 200px;
-    color: #62A591;
+    /* color: #62A591; */
     font-size: 10px;
     letter-spacing: 2px;
   }
@@ -72,7 +101,7 @@ export let Points;
     bottom: 0;
     left: 90px;
     color: white;
-    background-color: #62A591;
+    /* background-color: #62A591; */
     width: 60px;
     height: 50px;
     border-top-left-radius: 50%;
