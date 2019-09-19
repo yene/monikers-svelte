@@ -1,24 +1,20 @@
 <script>
-export let person;
-export let text;
-export let genre;
-export let points;
+export let Person;
+export let Text;
+export let Genre;
+export let Points;
 
 </script>
 
 <div class="card">
-  <h1>{person}</h1>
-  <p>{text}</p>
+  <h1>{Person}</h1>
+  <p>{Text}</p>
   <div class="line"></div>
-  <div class="genre" id="genre">{genre}</div>
+  <div class="genre" id="genre">{Genre}</div>
   <div class="points" id="points">
-    <span class="points-value">{points}</span>
+    <span class="points-value">{Points}</span>
     <div class="points-label">Point</div>
   </div>
-</div>
-<div class="control">
-  <button class="button-error pure-button" id="x" on-tap="skip"><img src="icons/x.svg" height="25" width="25"></button>
-  <button class="button-success pure-button" id="check" on-tap="identified"><img src="icons/check.svg" height="25" width="25"></button>
 </div>
 
 <style>
@@ -90,17 +86,4 @@ export let points;
     font-size: 8px;
   }
 
-  .control {
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  .button-success {
-    background: rgb(28, 184, 65); /* this is a green */
-  }
-
-  .button-error {
-    margin-right: 10px;
-    background: rgb(202, 60, 60); /* this is a maroon */
-  }
 </style>
