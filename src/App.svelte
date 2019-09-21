@@ -1,5 +1,5 @@
 <script>
-import { gameState } from './store.js';
+import { gameStore } from './store.js';
 
 
 import Setup from './Setup.svelte';
@@ -24,11 +24,11 @@ function gameInProgress() {
 }
 
 function setupDone(e) {
-	gameState.mergeObject(e.detail);
-	gameState.nextPage();
+	gameStore.mergeObject(e.detail);
+	gameStore.nextPage();
 }
 function roundsSelected(e) {
-	gameState.nextPage();
+	gameStore.nextPage();
 }
 
 </script>
@@ -36,33 +36,33 @@ function roundsSelected(e) {
 <style>
 
 </style>
-page: {$gameState.page}
+page: {$gameStore.page}
 
-{$gameState.timeLimit}
-{$gameState.playerCount}
+{$gameStore.timeLimit}
+{$gameStore.playerCount}
 
-{#if $gameState.page === 0}
+{#if $gameStore.page === 0}
 	<Setup on:next={setupDone}/>
-{:else if $gameState.page === 1}
+{:else if $gameStore.page === 1}
 	<SelectRounds on:next={setupDone}/>
 	<button on:click={setupDone}>Next</button>
-{:else if $gameState.page === 2}
+{:else if $gameStore.page === 2}
 	Build 2 teams. Black and White.
 	Every player is now going to pick 5 out of 8 cards, for his team to guess.
 	<button on:click={setupDone}>Next</button>
 
-{:else if $gameState.page === 3}
+{:else if $gameStore.page === 3}
 	Step 3
-{:else if $gameState.page === 4}
+{:else if $gameStore.page === 4}
 	Step 4
-{:else if $gameState.page === 5}
+{:else if $gameStore.page === 5}
 	Step 5
-{:else if $gameState.page === 6}
+{:else if $gameStore.page === 6}
 	Step 6
-{:else if $gameState.page === 7}
+{:else if $gameStore.page === 7}
 	Step 7
 {:else}
-	default gameState.page
+	default gameStore.page
 {/if}
 
 <!--

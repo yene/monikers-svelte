@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
+
 
 var defaultGameState = {
   page: 0, // current view the user sees.
@@ -22,13 +23,13 @@ function createGameStore() {
           throw new Error('Cannot merge object, it is not compatible with defaultGameState');
         }
       }
-      // TODO: update gameSTore object or clone it first
+      var state = get(gameStore);
       for (var k of ks) {
-        update(s => {
-          s[k] = obj[k];
-          return s;
-        });
+        state[k] = obj[k];
       }
+      update(() => {
+        return state;
+      });
     },
 		nextPage: () => update(s => {
       s.page = s.page + 1;
@@ -38,4 +39,4 @@ function createGameStore() {
 	};
 }
 
-export const gameState = createGameStore();
+export const gameStore = createGameStore();
