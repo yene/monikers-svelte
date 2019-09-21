@@ -1,15 +1,19 @@
+
+<!-- TODO: make sure one item is selected, comuted property-->
+
 <script>
 
 import Modal from './Modal.svelte';
+import {roundsData} from './rounds.js';
 
-let rounds = [
-  {title: 'Any Words', desc: 'Use ANY WORDS except the name itself, \nincluding other card text.', checked: true},
-  {title: 'One Word', desc: 'Use only ONE WORD.', checked: true},
-  {title: 'No Language', desc: 'NO LANGUAGE allowed, \nonly physical gestures and imitations.', checked: true},
-  {title: 'Hands', desc: 'Only use your hands.', checked: true},
-  {title: 'Noise', desc: 'No words, no movement, \njust a singular noise.', checked: true},
-];
-let selectedRound = rounds[0];
+let rounds = JSON.parse(JSON.stringify(roundsData));
+let selectedRound = null;
+
+function next() {
+  var seletedRounds = rounds.filter(r => r.checked);
+  console.log(selectedRounds);
+  // dispatch('next', {seletedRounds: seletedRounds});
+}
 
 function showModalFor(round) {
   selectedRound = round;
@@ -42,7 +46,7 @@ label {
 </style>
 
 <ul>
-	{#each rounds as round, i}
+	{#each rounds as round}
 		<li>
       <label>
         <input type=checkbox bind:checked={round.checked}>{round.title}
@@ -55,3 +59,5 @@ label {
 {#if selectedRound !== null}
   <Modal title={selectedRound.title} content={selectedRound.desc} on:close={closeModal} />
 {/if}
+
+<button on:click={next}>Next</button>
