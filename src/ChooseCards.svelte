@@ -61,8 +61,9 @@ function nextPlayer() {
   <div class="cards-row">
   {#each offeredCards as card}
     <div class="a-card">
+    <label>
       <Card {...card} />
-      <label><input type="checkbox" on:change={checkCardCount} bind:checked={card.choosen}>pick card</label>
+      <input type="checkbox" on:change={checkCardCount} bind:checked={card.choosen}>pick card</label>
     </div>
   {/each}
   </div>

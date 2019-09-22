@@ -5,6 +5,7 @@ import Setup from './Setup.svelte';
 import SelectRounds from './SelectRounds.svelte';
 import ChooseCards from './ChooseCards.svelte';
 import {roundsData} from './rounds.js';
+import GuessCards from './GuessCards.svelte';
 
 function gameInProgress() {
 	try {
@@ -45,8 +46,9 @@ page: {$gameStore.page}
 	<p>
 		We play until all cards are guessed. Then we score.
 	</p>
+	<button on:click={gameStore.nextPage}>Next</button>
 {:else if $gameStore.page === 5}
-	Step 5
+	<GuessCards cards={$gameStore.cards} />
 {:else}
 	not implemented yet
 {/if}
