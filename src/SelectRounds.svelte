@@ -3,11 +3,11 @@
 
 <script>
 
-import Modal from './Modal.svelte';
 import {roundsData} from './rounds.js';
+import {showAlert} from './dialog.js';
+
 
 let rounds = JSON.parse(JSON.stringify(roundsData));
-let selectedRound = null;
 
 function next() {
   var seletedRounds = rounds.filter(r => r.checked);
@@ -16,11 +16,7 @@ function next() {
 }
 
 function showModalFor(round) {
-  selectedRound = round;
-}
-
-function closeModal() {
-  selectedRound = null;
+  showAlert(round.title, round.desc);
 }
 
 </script>
@@ -55,9 +51,5 @@ label {
     </li>
 	{/each}
 </ul>
-
-{#if selectedRound !== null}
-  <Modal title={selectedRound.title} content={selectedRound.desc} on:close={closeModal} />
-{/if}
 
 <button on:click={next}>Next</button>

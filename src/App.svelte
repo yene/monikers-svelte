@@ -1,7 +1,6 @@
 <script>
 import { gameStore } from './store.js';
 
-
 import Setup from './Setup.svelte';
 import SelectRounds from './SelectRounds.svelte';
 import Card from './Card.svelte';
@@ -37,9 +36,6 @@ function roundsSelected(e) {
 
 </style>
 page: {$gameStore.page}
-
-{$gameStore.timeLimit}
-{$gameStore.playerCount}
 
 {#if $gameStore.page === 0}
 	<Setup on:next={setupDone}/>

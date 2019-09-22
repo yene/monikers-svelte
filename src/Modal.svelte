@@ -11,10 +11,9 @@ const dispatch = createEventDispatcher();
 
 export let title;
 export let content;
-export let closeHandler;
 
 function closeModal() {
-		dispatch('close');
+  dispatch('close');
 }
 </script>
 
