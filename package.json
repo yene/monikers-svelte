@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "sirv-cli": "^0.4.4",
+    "sweetalert2": "^8.17.6",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {

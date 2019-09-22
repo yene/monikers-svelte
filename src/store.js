@@ -7,7 +7,7 @@ var defaultGameState = {
   gameInProgress: false, // to check if the user has started the game
   playerCount: 4,
   timeLimit: 60,
-  seletedRounds: [],
+  selectedRounds: [],
   currentRound: 0,
 };
 

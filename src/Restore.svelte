@@ -1,5 +1,6 @@
 <script>
 import Swal from 'sweetalert2';
+import { onMount } from 'svelte';
 
 onMount(() => {
 	if (gameInProgress()) {

@@ -1,8 +1,5 @@
 <script>
 	import 'whatwg-fetch';
-	import { onMount } from 'svelte';
-
-
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
@@ -14,19 +11,6 @@
 		dispatch('next', {playerCount: playerCount, timeLimit: timeLimit});
 	}
 
-	let cards = [];
-	onMount(() => {
-		fetch('/cards.json')
-		.then(function(response) {
-			return response.json()
-		}).then(function(json) {
-			cards = json;
-			console.log('parsed json', json);
-		}).catch(function(ex) {
-			console.log('parsing failed', ex);
-		});
-	});
-
 </script>
 
 <h1>Monikers</h1>
@@ -35,7 +19,7 @@
 Players <input type="number" bind:value={playerCount}>
 Time per card <input type="number" bind:value={timeLimit}>
 <!-- exclude cards from previous play <input type="checkbox" bind:value={excludeCards}>-->
-
+<!-- TODO: aim for You want to aim for using around 40-50 cards  -->
 
 <p>Make two groups with equal amount players.</p>
 

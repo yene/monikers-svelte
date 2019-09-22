@@ -5,14 +5,14 @@
 
 import {roundsData} from './rounds.js';
 import {showAlert} from './dialog.js';
-
+import { createEventDispatcher } from 'svelte';
+const dispatch = createEventDispatcher();
 
 let rounds = JSON.parse(JSON.stringify(roundsData));
 
 function next() {
-  var seletedRounds = rounds.filter(r => r.checked);
-  console.log(selectedRounds);
-  // dispatch('next', {seletedRounds: seletedRounds});
+  var selectedRounds = rounds.filter(r => r.checked).map(r => r.index);
+  dispatch('next', {selectedRounds: selectedRounds});
 }
 
 function showModalFor(round) {

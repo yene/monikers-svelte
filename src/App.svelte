@@ -3,15 +3,8 @@ import { gameStore } from './store.js';
 
 import Setup from './Setup.svelte';
 import SelectRounds from './SelectRounds.svelte';
-import Card from './Card.svelte';
-
-// storing data: {timeLimit, playerCount, rounds, currentTurn}
-
-let cards = [];
-
-let page = 0;
-let playerCount = 4;
-let timeLimit = 60;
+import ChooseCards from './ChooseCards.svelte';
+import {roundsData} from './rounds.js';
 
 function gameInProgress() {
 	try {
@@ -22,11 +15,9 @@ function gameInProgress() {
 	}
 }
 
-function setupDone(e) {
+function storeAndNext(e) {
+	console.log(e.detail);
 	gameStore.mergeObject(e.detail);
-	gameStore.nextPage();
-}
-function roundsSelected(e) {
 	gameStore.nextPage();
 }
 
@@ -36,33 +27,26 @@ function roundsSelected(e) {
 
 </style>
 page: {$gameStore.page}
+<button on:click={gameStore.nextPage}>skip</button>
 
 {#if $gameStore.page === 0}
-	<Setup on:next={setupDone}/>
+	<Setup on:next={storeAndNext}/>
 {:else if $gameStore.page === 1}
-	<SelectRounds on:next={setupDone}/>
-	<button on:click={setupDone}>Next</button>
+	<SelectRounds on:next={storeAndNext}/>
 {:else if $gameStore.page === 2}
 	Build 2 teams. Black and White.
 	Every player is now going to pick 5 out of 8 cards, for his team to guess.
-	<button on:click={setupDone}>Next</button>
-
+	<button on:click={gameStore.nextPage}>Next</button>
 {:else if $gameStore.page === 3}
-	Step 3
+	<ChooseCards playerCount={$gameStore.playerCount} on:next={storeAndNext} />
 {:else if $gameStore.page === 4}
-	Step 4
+	<h1>Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
+	<p>{roundsData[$gameStore.currentRound].desc}</p>
+	<p>
+		We play until all cards are guessed. Then we score.
+	</p>
 {:else if $gameStore.page === 5}
 	Step 5
-{:else if $gameStore.page === 6}
-	Step 6
-{:else if $gameStore.page === 7}
-	Step 7
 {:else}
-	default gameStore.page
+	not implemented yet
 {/if}
-
-<!--
-{#each cards as card}
-	<Card {...card} />
-{/each}
--->
