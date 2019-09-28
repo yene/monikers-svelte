@@ -17,11 +17,12 @@ function createGameStore() {
 
 	return {
     subscribe,
+    // Objects are not observable, thats why we merge each property manually and then send an update for the whole object.
     mergeObject: (obj) => {
       var ks = Object.keys(obj);
       for (var k of ks) {
         if (!defaultGameState.hasOwnProperty(k)) {
-          throw new Error('Cannot merge object, it is not compatible with defaultGameState', obj);
+          throw new Error('Cannot merge object, it is not compatible with defaultGameState. ' + JSON.stringify(obj));
         }
       }
       var state = get(gameStore);

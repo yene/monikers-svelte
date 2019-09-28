@@ -1,7 +1,8 @@
 # Monikers Svelte
 
-[Monikers](http://www.monikersgame.com) is a party game which can be played on one phone.
+This is an implementation of the game [Monikers](http://www.monikersgame.com) with Svelte 3. Monikers is a party game which can be played by passing around a single phone.
 
+![artwork](monikers-artwork.jpg)
 
 ## Get started
 

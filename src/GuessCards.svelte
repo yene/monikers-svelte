@@ -54,7 +54,6 @@ function checkGameEnd(e) {
   var remaining = cards.filter((c) => {
     return c.guessed !== true;
   }).length;
-  console.log('remaining cards', remaining);
   if (remaining === 0) {
     scoreCards();
   }

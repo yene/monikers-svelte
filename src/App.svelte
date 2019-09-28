@@ -60,11 +60,13 @@ function scoreTotal() {
 	return total;
 }
 
+function restart() {
+	gameStore.reset();
+}
+
 </script>
 
 <Restore />
-
-game in progress: {$gameStore.gameInProgress}
 
 {#if $gameStore.page === 0}
 	<Setup on:next={storeAndNext}/>
@@ -118,6 +120,7 @@ game in progress: {$gameStore.gameInProgress}
 		</tr>
 		</tbody>
 	</table>
+	<button class="pure-button" on:click={restart}>Restart</button>
 {:else}
 	How did you get here!
 {/if}
