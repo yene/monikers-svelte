@@ -8,3 +8,38 @@ export function shuffle(c) {
   }
   return c;
 }
+
+export function Timer(cbUpdate, cbEnd, delay) {
+  var timeoutId, timerId, paused, start;
+  var remaining = delay;
+
+  this.isPaused = function() {
+    return paused;
+  };
+
+  this.toggle = function() {
+    if (paused) {
+      this.resume();
+    } else {
+      this.pause();
+    }
+  };
+
+  this.pause = function() {
+    paused = true;
+    window.clearTimeout(timeoutId);
+    window.clearInterval(timerId);
+    remaining -= Date.now() - start;
+  };
+
+  this.resume = function() {
+    paused = false;
+    start = Date.now();
+    window.clearTimeout(timeoutId);
+    window.clearInterval(timerId);
+    timeoutId = window.setTimeout(cbEnd, remaining);
+    timerId = window.setInterval(cbUpdate, 1000);
+  };
+
+  this.resume();
+};

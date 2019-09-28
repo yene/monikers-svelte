@@ -16,8 +16,9 @@
 <h1>Monikers</h1>
 <p>A dumb party game that respects your intelligence.</p>
 
-Players <input type="number" bind:value={playerCount}>
-Time per card <input type="number" bind:value={timeLimit}>
+Players <br><input type="number" min="2" bind:value={playerCount}><br>
+
+Time per card <br><input type="number" min="10" bind:value={timeLimit}>
 <!-- exclude cards from previous play <input type="checkbox" bind:value={excludeCards}>-->
 <!-- TODO: aim for You want to aim for using around 40-50 cards  -->
 

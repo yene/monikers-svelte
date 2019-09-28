@@ -33,9 +33,12 @@ function createGameStore() {
     },
 		nextPage: () => update(s => {
       s.page = s.page + 1;
+      if (s.page === 5) {
+        s.gameInProgress = true;
+      }
       return s;
     }),
-		reset: () => set(defaultGameState),
+    reset: () => set(defaultGameState),
 	};
 }
 
