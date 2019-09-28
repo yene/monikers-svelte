@@ -7,7 +7,8 @@ import {gameStore} from './store.js';
 
 const dispatch = createEventDispatcher();
 
-export let cards = [];
+export let cardpool = [];
+let cards = [];
 
 let currentTeam = 0; // 0 or 1
 let scoredCards = [[],[]];
@@ -36,6 +37,7 @@ function scoreCards() {
     return c.guessed !== true;
   });
   if (cards.length === 0) {
+    stopTimer();
     // show subtotal score, and go to next turn
     var team0points = scoredCards[0].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
     var team1points = scoredCards[1].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
@@ -48,20 +50,22 @@ function scoreCards() {
   return false;
 }
 
-function checkGameEnd() {
+function checkGameEnd(e) {
   var remaining = cards.filter((c) => {
     return c.guessed !== true;
   }).length;
+  console.log('remaining cards', remaining);
   if (remaining === 0) {
     scoreCards();
   }
 }
 
-var timerLabel = '';
+var timerLabel = "&#10074;&#10074;";
 var timer = null;
 var currentTime = $gameStore.timeLimit;
 
 onMount(() => {
+  cards = JSON.parse(JSON.stringify(cardpool));
   setTimeout(()=> {
     startTimer();
   }, 500);
@@ -90,7 +94,7 @@ function toggleTimer(e) {
   timer.toggle(); // TODO: toggle takes one second to show the time
   e.preventDefault();
 }
-function stopTimer(e) {
+function stopTimer() {
   timer.pause();
   currentTime = $gameStore.timeLimit;
   timerLabel = $gameStore.timeLimit;
@@ -98,15 +102,15 @@ function stopTimer(e) {
 
 </script>
 
-<button class="timer-btn" on:click={toggleTimer}>{@html timerLabel}</button>
+<button class="timer-btn pure-button" on:click={toggleTimer}>{@html timerLabel}</button>
 
 <h1>Team {currentTeam + 1} turn. {cards.length} cards left.</h1>
 <div class="cards-row">
 {#each cards as card}
-  <div class="a-card" on:click={checkGameEnd}>
+  <div class="a-card">
     <label>
     <Card {...card} />
-    <input type="checkbox" bind:checked={card.guessed}>Guessed</label>
+    <input type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}>Guessed</label>
   </div>
 {/each}
 </div>
@@ -114,6 +118,5 @@ function stopTimer(e) {
 <style>
 .timer-btn {
   width: 40px;
-  border-radius: 5px;
 }
 </style>

@@ -9,6 +9,7 @@ var defaultGameState = {
   timeLimit: 60,
   selectedRounds: [],
   currentRound: 0,
+  scores: [], // scores[currentround].cards[team] scores[currentround].points[team]
 };
 
 function createGameStore() {
@@ -20,7 +21,7 @@ function createGameStore() {
       var ks = Object.keys(obj);
       for (var k of ks) {
         if (!defaultGameState.hasOwnProperty(k)) {
-          throw new Error('Cannot merge object, it is not compatible with defaultGameState');
+          throw new Error('Cannot merge object, it is not compatible with defaultGameState', obj);
         }
       }
       var state = get(gameStore);

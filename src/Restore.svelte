@@ -9,14 +9,21 @@ window.addEventListener('beforeunload', (e) => {
 		return;
 	}
 	try {
-		window.localStorage.setItem('gameState', JSON.stringify($gameStore));
+		window.localStorage.setItem('gameStore', JSON.stringify($gameStore));
 	} catch (e) {
 		console.log(e)
 	}
 })
 
 onMount(() => {
-	if ($gameStore.gameInProgress) {
+	try {
+		var s = window.localStorage.getItem('gameStore');
+		var localGameStore = JSON.parse(s);
+	} catch (e) {
+		console.log(e)
+	}
+
+	if (localGameStore && localGameStore.gameInProgress === true) {
 		Swal.fire({
 			title: 'Game in progress',
 			text: 'Do you want to restore previous game?',
@@ -28,6 +35,7 @@ onMount(() => {
 			reverseButtons: true,
 		}).then((result) => {
 			if (result.value) {
+				gameStore.mergeObject(localGameStore);
 				Swal.fire(
 					'Restored!',
 					'Continue',
@@ -40,7 +48,7 @@ onMount(() => {
 					'success'
 				);
 				try {
-					window.localStorage.removeItem('gameState');
+					window.localStorage.removeItem('gameStore');
 				} catch (e) {
 					console.log(e);
 				}
