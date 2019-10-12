@@ -65,9 +65,7 @@ var currentTime = $gameStore.timeLimit;
 
 onMount(() => {
   cards = JSON.parse(JSON.stringify(cardpool));
-  setTimeout(()=> {
-    startTimer();
-  }, 500);
+  setTimeout(startTimer, 500);
 });
 
 function startTimer() {
