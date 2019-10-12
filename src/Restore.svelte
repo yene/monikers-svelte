@@ -42,11 +42,6 @@ onMount(() => {
 					'success'
 				);
 			} else {
-				Swal.fire(
-					'Deleted!',
-					'A fresh start.',
-					'success'
-				);
 				try {
 					window.localStorage.removeItem('gameStore');
 				} catch (e) {

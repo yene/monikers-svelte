@@ -40,7 +40,10 @@ function createGameStore() {
       }
       return s;
     }),
-    reset: () => set(defaultGameState),
+    reset: () => {
+      console.log('setting store to defaults', defaultGameState);
+      set(defaultGameState);
+    },
 	};
 }
 

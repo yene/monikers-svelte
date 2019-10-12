@@ -31,22 +31,11 @@
 	</div>
 
 	<div class="layout-footer">
-		<button on:click={next}>Start</button>
+		<button class="nav-button" on:click={next}>Start</button>
 	</div>
 
 </div>
 
 <style>
-.layout-root {
-	display: flex;
-	flex-direction: column;
-	min-height: 100%;
-	padding: 10px;
-}
-.layout-content {
-	flex: 1;
-}
-.layout-footer {
-	text-align: center;
-}
+
 </style>

@@ -61,9 +61,9 @@ function scoreTotal() {
 }
 
 function restart() {
+	console.log('restarting the store');
 	gameStore.reset();
 }
-
 </script>
 
 <Restore />
@@ -73,18 +73,30 @@ function restart() {
 {:else if $gameStore.page === 1}
 	<SelectRounds on:next={storeAndNext}/>
 {:else if $gameStore.page === 2}
-	Build 2 teams. Black and White.
-	Every player is now going to pick 5 out of 8 cards, for his team to guess.
-	<button on:click={gameStore.nextPage}>Next</button>
+	<div class="layout-root">
+		<div class="layout-content">
+			<h1 class="center">Build 2 Teams</h1>
+			Every player is now going to pick<br> 5 out of 8 cards, for his team to guess.
+		</div>
+		<div class="layout-footer">
+			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>
+		</div>
+	</div>
+
 {:else if $gameStore.page === 3}
 	<ChooseCards playerCount={$gameStore.playerCount} on:next={storeAndNext} />
 {:else if $gameStore.page === 4}
-	<h1>Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
-	<p>{roundsData[$gameStore.currentRound].desc}</p>
-	<p>
-		We play until all cards are guessed. Then we score.
-	</p>
-	<button on:click={gameStore.nextPage}>Next</button>
+	<div class="layout-root">
+		<div class="layout-content">
+			<h1 class="center">Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
+			<p>{roundsData[$gameStore.currentRound].desc}</p>
+			<p>We play until all cards are guessed. Then we score.</p>
+		</div>
+		<div class="layout-footer">
+			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>
+		</div>
+	</div>
+
 {:else if $gameStore.page === 5}
 	<GuessCards cardpool={$gameStore.cards} on:scoreRound={scoreRound}/>
 {:else if $gameStore.page === 6}
@@ -120,7 +132,11 @@ function restart() {
 		</tr>
 		</tbody>
 	</table>
-	<button class="pure-button" on:click={restart}>Restart</button>
+	<button class="nav-button" on:click={restart}>Restart</button>
 {:else}
 	How did you get here!
 {/if}
+
+<style>
+
+</style>

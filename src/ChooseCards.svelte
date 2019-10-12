@@ -52,25 +52,27 @@ function nextPlayer() {
 
 </script>
 
-<div>Cards: {pickedCardCount}/5</div>
+<div class="layout-root">
+  <div class="layout-content">
+    <h3 class="center">Cards: {pickedCardCount}/5</h3>
 
-{#if showNextPlayer}
-  Please hand to the next player to pick out 5 cards.
-  <button on:click={nextPlayer}>Ok</button>
-{:else}
-  <div class="cards-row">
-  {#each offeredCards as card}
-    <div class="a-card">
-    <label>
-      <Card {...card} />
-      <input type="checkbox" on:change={checkCardCount} bind:checked={card.choosen}>pick card</label>
-    </div>
-  {/each}
+    {#if showNextPlayer}
+      Please hand to the next player to pick out 5 cards.
+    {:else}
+      <div class="cards-row">
+      {#each offeredCards as card}
+        <div class="a-card">
+        <label>
+          <Card {...card} bind:selected={card.choosen} />
+          <input style="display: none;" type="checkbox" on:change={checkCardCount} bind:checked={card.choosen}></label>
+        </div>
+      {/each}
+      </div>
+    {/if}
   </div>
-{/if}
-
-<style>
-
-
-
-</style>
+  {#if showNextPlayer}
+  <div class="layout-footer">
+    <button class="nav-button" on:click={nextPlayer}>Ok</button>
+  </div>
+  {/if}
+</div>
