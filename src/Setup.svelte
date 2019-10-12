@@ -13,18 +13,40 @@
 
 </script>
 
-<h1>Monikers</h1>
-<p>A dumb party game that respects your intelligence.</p>
+<div class="layout-root">
+	<div class="layout-content">
 
-Players <br><input type="number" min="2" bind:value={playerCount}><br>
+	<h1 class="center">Monikers</h1>
+	<p>A dumb party game that respects your intelligence.</p>
 
-Time per card <br><input type="number" min="10" bind:value={timeLimit}>
-<!-- exclude cards from previous play <input type="checkbox" bind:value={excludeCards}>-->
-<!-- TODO: aim for You want to aim for using around 40-50 cards  -->
+	Players <br><input type="number" min="2" bind:value={playerCount}><br>
 
-<p>Make two groups with equal amount players.</p>
+	Time per card <br><input type="number" min="10" bind:value={timeLimit}>
+	<!-- exclude cards from previous play <input type="checkbox" bind:value={excludeCards}>-->
+	<!-- TODO: aim for You want to aim for using around 40-50 cards  -->
 
-<p>Restart the app or refresh in the browser to reset the game.</p>
+	<p>Make two groups with equal amount players. Restart the app or refresh in the browser to reset the game.</p>
 
-<a href="rules.pdf" target="_blank">How to play</a>
-<button on:click={next}>Start</button>
+	<a href="rules.pdf" target="_blank">How to play</a>
+	</div>
+
+	<div class="layout-footer">
+		<button on:click={next}>Start</button>
+	</div>
+
+</div>
+
+<style>
+.layout-root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	padding: 10px;
+}
+.layout-content {
+	flex: 1;
+}
+.layout-footer {
+	text-align: center;
+}
+</style>
