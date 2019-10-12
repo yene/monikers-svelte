@@ -98,24 +98,36 @@ function stopTimer() {
   currentTime = $gameStore.timeLimit;
   timerLabel = $gameStore.timeLimit;
 }
-
 </script>
 
-<button class="timer-btn pure-button" on:click={toggleTimer}>{@html timerLabel}</button>
-
-<h1>Team {currentTeam + 1} turn. {cards.length} cards left.</h1>
-<div class="cards-row">
-{#each cards as card}
-  <div class="a-card">
-    <label>
-    <Card {...card} />
-    <input type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}>Guessed</label>
+<div class="layout-root">
+  <div class="layout-header">
+    <span class="game-progress">Team {currentTeam + 1} turn. {cards.length} cards left.</span>
+    <button class="timer-btn" on:click={toggleTimer}>{@html timerLabel}</button>
   </div>
-{/each}
+  <div class="layout-content">
+    <div class="cards-row">
+    {#each cards as card}
+      <div class="a-card">
+        <label>
+        <Card {...card} bind:selected={card.guessed}/>
+        <input style="display: none" type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}></label>
+      </div>
+    {/each}
+    </div>
+  </div>
 </div>
+
+
 
 <style>
 .timer-btn {
   width: 40px;
+  float: right;
 }
+.game-progress {
+  line-height: 40px;
+  font-size: 20px;
+}
+
 </style>

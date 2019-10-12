@@ -3,10 +3,11 @@ export let Person;
 export let Text;
 export let Genre;
 export let Points;
+export let selected;
 
 </script>
 
-<div class="card" class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
+<div class="card" class:card-selected={selected} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
   <h1>{Person}</h1>
   <p>{Text}</p>
   <div class="line"></div>
@@ -18,10 +19,6 @@ export let Points;
 </div>
 
 <style>
-  :host {
-    margin: 10px;
-  }
-
   .green .genre {
     color: #54b899;
   }
@@ -52,6 +49,7 @@ export let Points;
   }
 
   .card {
+    user-select: none;
     pointer-events: none;
     position: relative;
     padding: 20px;
@@ -64,10 +62,19 @@ export let Points;
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
   }
 
+  .card-selected {
+    box-shadow: 2px 2px 5px 0px rgba(43, 68, 209, 0.75);
+    border: 1px solid rgba(43, 68, 209, 1);
+    margin-left: -1px;
+    margin-top: -1px;
+    width: 242px;
+    height: 362px;
+  }
+
   .card > h1 {
     font-size: 18px;
-    margin-top: 26px;
-    margin-bottom: 23px;
+    margin-top: 15px; /*26px;*/
+    margin-bottom: 15px; /*23px;*/
     font-weight: normal;
     /*height: 46px;*/
     line-height: 23px;

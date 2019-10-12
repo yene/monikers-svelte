@@ -7,3 +7,4 @@
 - [ ] restore from localstorage, including current teams turn
 - [ ] swipe next, or button for next
 - [ ] Translate to german, take language from browser.
+- [ ] Fix card styling

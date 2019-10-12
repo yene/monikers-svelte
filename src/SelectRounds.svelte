@@ -42,7 +42,7 @@ function showModalFor(round) {
 	</div>
   <div class="layout-footer">
   	<!-- <a class="cancel-link" on:click={() => {window.location.reload()}} href="#">cancel</a> -->
-    <button class:pure-button-disabled={selectedRounds.length === 0} on:click={next}>Next</button>
+    <button class="nav-button" class:pure-button-disabled={selectedRounds.length === 0} on:click={next}>Next</button>
   </div>
 </div>
 
