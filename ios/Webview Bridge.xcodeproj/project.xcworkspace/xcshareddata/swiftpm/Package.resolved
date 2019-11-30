@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "WKdova",
+        "repositoryURL": "https://github.com/yene/WKdova",
+        "state": {
+          "branch": null,
+          "revision": "6ffb945f2ca70eaff005775aa6c1acda0ff7b825",
+          "version": "0.0.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
