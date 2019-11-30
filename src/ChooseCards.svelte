@@ -10,7 +10,7 @@ let showNextPlayer = false;
 
 let shuffledCardPool = [];
 onMount(() => {
-  fetch('/cards.json')
+  fetch('/pnp-cards.json')
   .then(function(response) {
     return response.json()
   }).then(function(json) {

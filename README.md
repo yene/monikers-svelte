@@ -19,5 +19,8 @@ npm install
 npm run dev
 ```
 
+## Deploying iOS app
+Xcode includes a build script, good luck xD
+
 ## Previous version
 The previous version was written with polymer. And can be found on [GitHub](https://github.com/yene/monikers)

@@ -16,6 +16,10 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	-webkit-text-size-adjust: none; /* prevent text from being scaled by OS */
+	min-height: 100%; /* 100vh includes the safe areas */
+	padding-top: env(safe-area-inset-top);
+	padding-bottom: env(safe-area-inset-bottom);
 }
 
 a {

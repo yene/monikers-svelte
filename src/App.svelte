@@ -67,7 +67,7 @@ function restart() {
 </script>
 
 <Restore />
-
+<div class="app">
 {#if $gameStore.page === 0}
 	<Setup on:next={storeAndNext}/>
 {:else if $gameStore.page === 1}
@@ -136,7 +136,13 @@ function restart() {
 {:else}
 	How did you get here!
 {/if}
+</div>
 
 <style>
-
+.app {
+	/* iphone 6s 375x667 = 1334x750 */
+	width: 375px;
+	height: 667px;
+	border: 1px solid black;
+}
 </style>

@@ -7,7 +7,7 @@
 	let timeLimit = 60;
 	let excludeCards = false
 	let hasCordova = (window.plugins !== undefined);
-	let preventSleep = window.plugins.insomnia.isEnabled;
+	let preventSleep = hasCordova ? window.plugins.insomnia.isEnabled : false;
 
 	function next() {
 		dispatch('next', {playerCount: playerCount, timeLimit: timeLimit});
