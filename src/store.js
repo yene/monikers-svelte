@@ -29,9 +29,7 @@ function createGameStore() {
       for (var k of ks) {
         state[k] = obj[k];
       }
-      update(() => {
-        return state;
-      });
+      set(state);
     },
 		nextPage: () => update(s => {
       s.page = s.page + 1;
