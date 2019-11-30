@@ -3,17 +3,27 @@ import Swal from 'sweetalert2';
 import { onMount } from 'svelte';
 import { gameStore } from './store.js';
 
-window.addEventListener('beforeunload', (e) => {
-	console.log('beforeunload');
-	if (!$gameStore.gameInProgress) {
+var isOnIOS = navigator.userAgent.match(/iPad/i)|| navigator.userAgent.match(/iPhone/i);
+var eventName = isOnIOS ? 'pagehide' : 'beforeunload';
+var _debounce = null;
+
+gameStore.subscribe((gs) => {
+	if (gs.gameInProgress === false) {
 		return;
 	}
+	console.log('updated store, game in progress', gs);
+	clearTimeout(_debounce);
+	_debounce = setTimeout(saveGame, 2000);
+});
+
+function saveGame() {
 	try {
 		window.localStorage.setItem('gameStore', JSON.stringify($gameStore));
+		console.log('saved game');
 	} catch (e) {
 		console.log(e)
 	}
-})
+}
 
 onMount(() => {
 	try {
