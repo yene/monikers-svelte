@@ -3,11 +3,11 @@ export let Title;
 export let Description;
 export let Category;
 export let Points;
-export let selected;
+export let choosen;
 
 </script>
 
-<div class="card" class:card-selected={selected} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
+<div class="card" class:card-selected={choosen} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
   <h1>{Title}</h1>
   <p>{Description}</p>
   <div class="line"></div>
@@ -48,8 +48,11 @@ export let selected;
     background: #e84735;
   }
 
+
+
   .card {
     user-select: none;
+    -webkit-user-select: none;
     pointer-events: none;
     position: relative;
     padding: 20px;

@@ -5,7 +5,7 @@
 
 	let playerCount = 4;
 	let timeLimit = 60;
-	let excludeCards = false
+	let excludeCards = false;
 	let hasCordova = (window.plugins !== undefined);
 	let preventSleep = hasCordova ? window.plugins.insomnia.isEnabled : false;
 
@@ -14,6 +14,10 @@
 		if (hasCordova) {
 			window.plugins.insomnia.setEnabled(preventSleep);
 		}
+	}
+
+	function showPDF() {
+		window.plugins.utils.openURL('https://shiro.ch/rules.pdf');
 	}
 
 </script>
@@ -29,11 +33,13 @@
 		Prevent display sleep <input type="checkbox" bind:checked={preventSleep}>
 		{/if}
 		<!-- exclude cards from previous play <input type="checkbox" bind:checked={excludeCards}>-->
-		<!-- TODO: aim for You want to aim for using around 40-50 cards  -->
 
 		<p>Make two groups with equal amount players. Restart the app or refresh in the browser to reset the game.</p>
-
-		<a href="/rules.pdf" target="_blank">How to play</a>
+		{#if hasCordova}
+			<a href="#" on:click={showPDF}>How to play PDF</a>
+		{:else}
+			<a href="/rules.pdf" target="_blank">How to play PDF</a>
+		{/if}
 	</div>
 	<div class="layout-footer">
 		<button class="nav-button" on:click={next}>Start</button>

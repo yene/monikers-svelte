@@ -25,10 +25,19 @@ onMount(() => {
 let offeredCards = [];
 let choosenCards = [];
 let pickedCardCount = 0;
+
 function offerCards() {
-  offeredCards = shuffledCardPool.splice(0, 8);
-  offeredCards.forEach(c => c.choosen = false);
+  var crds = shuffledCardPool.splice(0, 10);
+  crds.forEach(c => c.choosen = false);
+  offeredCards = crds;
 }
+
+function selectCard(e, index) {
+  offeredCards[index].choosen = !offeredCards[index].choosen;
+  e.preventDefault(); // Note: click would still have sent the double click throuhg to the elment behind.
+  checkCardCount();
+}
+
 function checkCardCount() {
   var choosen = offeredCards.filter(c => c.choosen);
   pickedCardCount = choosen.length;
@@ -41,7 +50,6 @@ function checkCardCount() {
   if (choosenCards.length === playerCount * 5) {
 		dispatch('next', {cards: choosenCards});
   }
-
 }
 
 function nextPlayer() {
@@ -60,11 +68,9 @@ function nextPlayer() {
       Please hand to the next player to pick out 5 cards.
     {:else}
       <div class="cards-row">
-      {#each offeredCards as card}
-        <div class="a-card">
-        <label>
-          <Card {...card} bind:selected={card.choosen} />
-          <input style="display: none;" type="checkbox" on:change={checkCardCount} bind:checked={card.choosen}></label>
+      {#each offeredCards as card, i}
+        <div class="a-card" on:mousedown={(e) => {selectCard(e, i)}}>
+          <Card {...card} />
         </div>
       {/each}
       </div>
