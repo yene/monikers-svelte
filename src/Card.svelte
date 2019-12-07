@@ -1,17 +1,17 @@
 <script>
-export let Person;
-export let Text;
-export let Genre;
+export let Title;
+export let Description;
+export let Category;
 export let Points;
 export let selected;
 
 </script>
 
 <div class="card" class:card-selected={selected} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
-  <h1>{Person}</h1>
-  <p>{Text}</p>
+  <h1>{Title}</h1>
+  <p>{Description}</p>
   <div class="line"></div>
-  <div class="genre" id="genre">{Genre}</div>
+  <div class="genre" id="genre">{Category}</div>
   <div class="points" id="points">
     <span class="points-value">{Points}</span>
     <div class="points-label">Point</div>
