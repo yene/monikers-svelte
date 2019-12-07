@@ -141,9 +141,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		ACD8932F222822C60073EC6E /* Webview Bridge */ = {
+		ACD8932F222822C60073EC6E /* Monikers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ACD89342222822C80073EC6E /* Build configuration list for PBXNativeTarget "Webview Bridge" */;
+			buildConfigurationList = ACD89342222822C80073EC6E /* Build configuration list for PBXNativeTarget "Monikers" */;
 			buildPhases = (
 				AC5245F3238E828500A434D0 /* ShellScript */,
 				ACD8932C222822C60073EC6E /* Sources */,
@@ -155,7 +155,7 @@
 			);
 			dependencies = (
 			);
-			name = "Webview Bridge";
+			name = Monikers;
 			packageProductDependencies = (
 				AC1B82FD2392AE56008374C4 /* WKdova */,
 			);
@@ -179,7 +179,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ACD8932B222822C50073EC6E /* Build configuration list for PBXProject "Webview Bridge" */;
+			buildConfigurationList = ACD8932B222822C50073EC6E /* Build configuration list for PBXProject "Monikers" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -201,7 +201,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				ACD8932F222822C60073EC6E /* Webview Bridge */,
+				ACD8932F222822C60073EC6E /* Monikers */,
 			);
 		};
 /* End PBXProject section */
@@ -455,7 +455,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ACD8932B222822C50073EC6E /* Build configuration list for PBXProject "Webview Bridge" */ = {
+		ACD8932B222822C50073EC6E /* Build configuration list for PBXProject "Monikers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ACD89340222822C80073EC6E /* Debug */,
@@ -464,7 +464,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ACD89342222822C80073EC6E /* Build configuration list for PBXNativeTarget "Webview Bridge" */ = {
+		ACD89342222822C80073EC6E /* Build configuration list for PBXNativeTarget "Monikers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ACD89343222822C80073EC6E /* Debug */,
