@@ -75,7 +75,7 @@ button:focus {
 	min-width: 100px;
 }
 
-.center {
+.center, .text-center {
 	text-align: center;
 }
 
