@@ -76,7 +76,7 @@ function restart() {
 	<div class="layout-root">
 		<div class="layout-content">
 			<h1 class="center">Build 2 Teams</h1>
-			Every player is now going to pick<br> 5 out of 10 cards, for his team to guess.
+			<div class="center">Every player is now going to pick<br> 5 out of 10 cards, for his team to guess.</div>
 		</div>
 		<div class="layout-footer">
 			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>
@@ -89,8 +89,10 @@ function restart() {
 	<div class="layout-root">
 		<div class="layout-content">
 			<h1 class="center">Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
-			<p>{roundsData[$gameStore.currentRound].desc}</p>
-			<p>We play until all cards are guessed. Then we score.</p>
+			<div class="center">
+				<p>{roundsData[$gameStore.currentRound].desc}</p>
+				<p>We play until all cards are guessed. Then we score.</p>
+			</div>
 		</div>
 		<div class="layout-footer">
 			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>

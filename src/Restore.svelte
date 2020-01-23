@@ -48,7 +48,7 @@ onMount(() => {
 				gameStore.mergeObject(localGameStore);
 				Swal.fire(
 					'Restored!',
-					'Continue',
+					'',
 					'success'
 				);
 			} else {

@@ -4,6 +4,10 @@ This is an implementation of the game [Monikers](http://www.monikersgame.com) wi
 
 ![artwork](monikers-artwork.jpg)
 
+## Used Material
+* Icons provided by Font-awesome - CC BY 4.0 License
+* CSS provided by Pure CSS - Copyright 2013 Yahoo, BSD license
+
 ## Get started
 
 Install the dependencies...

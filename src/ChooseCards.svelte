@@ -65,7 +65,7 @@ function nextPlayer() {
     <h3 class="center">Cards: {pickedCardCount}/5</h3>
 
     {#if showNextPlayer}
-      Please hand to the next player to pick out 5 cards.
+      <div class="center">Please hand to the next player, <br>so he can to pick his 5 cards.</div>
     {:else}
       <div class="cards-row">
       {#each offeredCards as card, i}
@@ -82,3 +82,30 @@ function nextPlayer() {
   </div>
   {/if}
 </div>
+
+<style>
+.cards-row {
+  display: flex;
+  padding: 10px;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+.a-card {
+  margin-right: 20px;
+  scroll-snap-align: center;
+}
+
+.a-card:last-child {
+  margin-right: 0;
+}
+
+/* hide scrollbar */
+.cards-row {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.cards-row::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+</style>

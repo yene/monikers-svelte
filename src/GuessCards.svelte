@@ -110,6 +110,10 @@ function stopTimer() {
         <label>
         <Card {...card} bind:selected={card.guessed}/>
         <input style="display: none" type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}></label>
+        <button class="button-error" id="x" on-tap="skip"><img src="/icons/x.svg" height="25" width="25"></button>
+        <button class="button-success" id="check" on-tap="identified"><img src="/icons/check.svg" height="25" width="25"></button>
+        <button class="button-next" id="next" on-tap="adsf"><img src="/icons/arrow-right-regular.svg" height="25" width="25"></button>
+
       </div>
     {/each}
     </div>
@@ -128,4 +132,27 @@ function stopTimer() {
   font-size: 20px;
 }
 
+.cards-row {
+  display: flex;
+  padding: 10px;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+.a-card {
+  margin-right: 20px;
+  scroll-snap-align: center;
+}
+
+.a-card:last-child {
+  margin-right: 0;
+}
+
+/* hide scrollbar */
+.cards-row {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.cards-row::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
 </style>
