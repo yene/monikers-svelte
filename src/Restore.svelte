@@ -37,7 +37,7 @@ onMount(() => {
 		Swal.fire({
 			title: 'Game in progress',
 			text: 'Do you want to restore previous game?',
-			type: 'question',
+			icon: 'question',
 			confirmButtonText: 'Restore',
 			showCancelButton: true,
 			cancelButtonText: 'Restart',

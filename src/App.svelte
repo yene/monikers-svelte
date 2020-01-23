@@ -1,21 +1,11 @@
 <script>
-import { gameStore } from './store.js';
-
+import {gameStore} from './store.js';
 import Setup from './Setup.svelte';
 import SelectRounds from './SelectRounds.svelte';
 import ChooseCards from './ChooseCards.svelte';
 import {roundsData} from './rounds.js';
 import GuessCards from './GuessCards.svelte';
 import Restore from './Restore.svelte';
-
-function gameInProgress() {
-	try {
-		var s = window.localStorage.getItem('gameState');
-		return (s !== null);
-	} catch (e) {
-		return false;
-	}
-}
 
 function storeAndNext(e) {
 	console.log(e.detail);
@@ -61,7 +51,6 @@ function scoreTotal() {
 }
 
 function restart() {
-	console.log('restarting the store');
 	gameStore.reset();
 }
 </script>
@@ -82,7 +71,6 @@ function restart() {
 			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>
 		</div>
 	</div>
-
 {:else if $gameStore.page === 3}
 	<ChooseCards playerCount={$gameStore.playerCount} on:next={storeAndNext} />
 {:else if $gameStore.page === 4}
@@ -91,7 +79,7 @@ function restart() {
 			<h1 class="center">Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
 			<div class="center">
 				<p>{roundsData[$gameStore.currentRound].desc}</p>
-				<p>We play until all cards are guessed. Then we score.</p>
+				<p>We play until all cards are guessed. <br>Then we score.</p>
 			</div>
 		</div>
 		<div class="layout-footer">

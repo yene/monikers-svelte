@@ -4,6 +4,9 @@ import {createEventDispatcher} from 'svelte';
 import {Timer} from './utils.js';
 import {onMount} from 'svelte';
 import {gameStore} from './store.js';
+import ArrowRight from '../public/icons/arrow-right-regular.svg';
+import Check from '../public/icons/check-regular.svg';
+import Times from '../public/icons/times-regular.svg';
 
 const dispatch = createEventDispatcher();
 
@@ -65,10 +68,14 @@ var currentTime = $gameStore.timeLimit;
 
 onMount(() => {
   cards = JSON.parse(JSON.stringify(cardpool));
+  cards.forEach((c) => {
+    c.choosen = false;
+  });
   setTimeout(startTimer, 500);
 });
 
 function startTimer() {
+  console.log('starting timer');
   currentTime = $gameStore.timeLimit;
   timerLabel = currentTime;
   timer = new Timer(() => {
@@ -100,7 +107,7 @@ function stopTimer() {
 
 <div class="layout-root">
   <div class="layout-header">
-    <span class="game-progress">Team {currentTeam + 1} turn. {cards.length} cards left.</span>
+    <span class="game-progress">Team {currentTeam + 1} - {cards.length} cards left.</span>
     <button class="timer-btn" on:click={toggleTimer}>{@html timerLabel}</button>
   </div>
   <div class="layout-content">
@@ -108,11 +115,13 @@ function stopTimer() {
     {#each cards as card}
       <div class="a-card">
         <label>
-        <Card {...card} bind:selected={card.guessed}/>
+        <Card {...card} />
         <input style="display: none" type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}></label>
-        <button class="button-error" id="x" on-tap="skip"><img src="/icons/x.svg" height="25" width="25"></button>
-        <button class="button-success" id="check" on-tap="identified"><img src="/icons/check.svg" height="25" width="25"></button>
-        <button class="button-next" id="next" on-tap="adsf"><img src="/icons/arrow-right-regular.svg" height="25" width="25"></button>
+        <div class="button-row">
+          <button class="card-button button-wrong">{@html Times}</button>
+          <button class="card-button button-correct">{@html Check}</button>
+          <button class="card-button button-next">{@html ArrowRight}</button>
+        </div>
 
       </div>
     {/each}
@@ -123,6 +132,31 @@ function stopTimer() {
 
 
 <style>
+
+.button-wrong {
+  color: #e84735;
+}
+.button-correct {
+  color: limegreen;
+}
+.button-next {
+  color: deepskyblue;
+}
+
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.card-button {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+
 .timer-btn {
   width: 40px;
   float: right;
