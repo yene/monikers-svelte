@@ -39,7 +39,7 @@ function scoreRound(e) {
 }
 
 function scoreTotal() {
-	console.log('called');
+	console.log('scoreTotal called');
 	var total = {cards: [0,0], points: [0,0]};
 	for (var round of $gameStore.scores) {
 		total.cards[0] += round.cards[0];

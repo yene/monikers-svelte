@@ -4,11 +4,11 @@ export let Description;
 export let Category;
 export let Points;
 export let choosen;
-
+export let guessed;
 </script>
 
 <div class="card" class:card-selected={choosen} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
-  <h1>{Title}</h1>
+  <h1>{Title} {guessed}</h1>
   <p>{Description}</p>
   <div class="line"></div>
   <div class="genre" id="genre">{Category}</div>

@@ -7,6 +7,7 @@ import {gameStore} from './store.js';
 import ArrowRight from '../public/icons/arrow-right-regular.svg';
 import Check from '../public/icons/check-regular.svg';
 import Times from '../public/icons/times-regular.svg';
+import Swal from 'sweetalert2';
 
 const dispatch = createEventDispatcher();
 
@@ -17,7 +18,11 @@ let currentTeam = 0; // 0 or 1
 let scoredCards = [[],[]];
 
 function turnDidEnd() {
-  alert('next teams turn, please hand over the phone');
+  Swal.fire(
+    'Other teams turn!',
+    'Please hand over the device.',
+    'Ok'
+  );
   var stop = scoreCards();
   if (stop === true) {
     return;
@@ -71,8 +76,21 @@ onMount(() => {
   cards.forEach((c) => {
     c.choosen = false;
   });
-  setTimeout(startTimer, 500);
+  window.setTimeout(startTimer, 500);
 });
+
+function guessedCard(i, card) {
+  // I have the array to tell which index I changed, I cannot change the object.
+  cards[i].guessed = true;
+}
+function nextCard(i) {
+  var nextcard = i+1;
+  if (nextcard >= cards.length) {
+    nextcard = 0;
+  }
+  var element = document.getElementById(nextcard);
+  element.scrollIntoView();
+}
 
 function startTimer() {
   console.log('starting timer');
@@ -112,30 +130,37 @@ function stopTimer() {
   </div>
   <div class="layout-content">
     <div class="cards-row">
-    {#each cards as card}
-      <div class="a-card">
-        <label>
+    {#each cards as card, i}
+      <div class="a-card" id={i}>
+        {#if card.guessed}
+          <div class="card-guessed">{@html Check}</div>
+        {/if}
         <Card {...card} />
-        <input style="display: none" type="checkbox" bind:checked={card.guessed} on:change={checkGameEnd}></label>
+        {#if !card.guessed}
         <div class="button-row">
-          <button class="card-button button-wrong">{@html Times}</button>
-          <button class="card-button button-correct">{@html Check}</button>
-          <button class="card-button button-next">{@html ArrowRight}</button>
+          <button class="card-button button-correct" on:click={() => {guessedCard(i, card)}}>{@html Check}</button>
+          <button class="card-button button-next" on:click={() => {nextCard(i)}}>{@html ArrowRight}</button>
         </div>
-
+        {/if}
       </div>
     {/each}
     </div>
   </div>
 </div>
 
-
-
 <style>
 
-.button-wrong {
-  color: #e84735;
+.card-guessed {
+  background-color:green;
+  opacity: 0.7;
+  pointer-events: none;
+  position: absolute;
+  color: limegreen;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
+
 .button-correct {
   color: limegreen;
 }
@@ -143,12 +168,13 @@ function stopTimer() {
   color: deepskyblue;
 }
 
-
 .button-row {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 40px;
-  padding-right: 40px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.card-button:first-child {
+  margin-right: 10px;
 }
 
 .card-button {
@@ -173,6 +199,7 @@ function stopTimer() {
   scroll-snap-type: y mandatory;
 }
 .a-card {
+  position: relative;
   margin-right: 20px;
   scroll-snap-align: center;
 }

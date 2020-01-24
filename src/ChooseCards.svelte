@@ -28,7 +28,10 @@ let pickedCardCount = 0;
 
 function offerCards() {
   var crds = shuffledCardPool.splice(0, 10);
-  crds.forEach(c => c.choosen = false);
+  crds.forEach((c) => {
+    c.choosen = false;
+    c.guessed = false;
+  });
   offeredCards = crds;
 }
 
