@@ -82,8 +82,11 @@ onMount(() => {
 function guessedCard(i, card) {
   // I have the array to tell which index I changed, I cannot change the object.
   cards[i].guessed = true;
+  checkGameEnd();
+  nextCard(i);
 }
 function nextCard(i) {
+  // TODO: find next card that is not guessed.
   var nextcard = i+1;
   if (nextcard >= cards.length) {
     nextcard = 0;
@@ -132,9 +135,7 @@ function stopTimer() {
     <div class="cards-row">
     {#each cards as card, i}
       <div class="a-card" id={i}>
-        {#if card.guessed}
-          <div class="card-guessed">{@html Check}</div>
-        {/if}
+
         <Card {...card} />
         {#if !card.guessed}
         <div class="button-row">

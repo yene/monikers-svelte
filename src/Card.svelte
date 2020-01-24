@@ -1,4 +1,6 @@
 <script>
+import Check from '../public/icons/check-regular.svg';
+
 export let Title;
 export let Description;
 export let Category;
@@ -8,17 +10,33 @@ export let guessed;
 </script>
 
 <div class="card" class:card-selected={choosen} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
-  <h1>{Title} {guessed}</h1>
-  <p>{Description}</p>
-  <div class="line"></div>
-  <div class="genre" id="genre">{Category}</div>
-  <div class="points" id="points">
-    <span class="points-value">{Points}</span>
-    <div class="points-label">Point</div>
+  {#if guessed}
+    <div class="card-guessed">{@html Check}</div>
+  {/if}
+  <div class="card-body">
+    <h1>{Title}</h1>
+    <p>{Description}</p>
+    <div class="line"></div>
+    <div class="genre" id="genre">{Category}</div>
+    <div class="points" id="points">
+      <span class="points-value">{Points}</span>
+      <div class="points-label">Point</div>
+    </div>
   </div>
 </div>
 
 <style>
+  .card-guessed {
+    background-color:green;
+    opacity: 0.7;
+    pointer-events: none;
+    position: absolute;
+    color: limegreen;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
   .green .genre {
     color: #54b899;
   }
@@ -48,14 +66,11 @@ export let guessed;
     background: #e84735;
   }
 
-
-
   .card {
     user-select: none;
     -webkit-user-select: none;
     pointer-events: none;
     position: relative;
-    padding: 20px;
     /* 6x9 cm */
     width: 240px;
     height: 360px;
@@ -63,6 +78,11 @@ export let guessed;
     border-radius: 10px;
     text-align: center;
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  }
+  .card-body {
+    padding: 20px;
+    height: 100%;
+    width: 100%;
   }
 
   .card-selected {
@@ -74,7 +94,7 @@ export let guessed;
     height: 362px;
   }
 
-  .card > h1 {
+  .card-body > h1 {
     font-size: 18px;
     margin-top: 15px; /*26px;*/
     margin-bottom: 15px; /*23px;*/
@@ -83,11 +103,11 @@ export let guessed;
     line-height: 23px;
   }
 
-  .card > p {
+  .card-body  > p {
     font-size: 12px;
   }
 
-  .card > .line {
+  .card-body > .line {
     position: absolute;
     bottom: 100px;
     left: 70px;
@@ -95,7 +115,7 @@ export let guessed;
     border-bottom: 2px dotted gray;
   }
 
-  .card > .genre {
+  .card-body > .genre {
     text-transform: uppercase;
     position: absolute;
     bottom: 70px;
@@ -106,7 +126,7 @@ export let guessed;
     letter-spacing: 2px;
   }
 
-  .card > .points {
+  .card-body > .points {
     position: absolute;
     bottom: 0;
     left: 90px;
@@ -120,7 +140,7 @@ export let guessed;
     padding-top: 5px;
   }
 
-  .card > .points > .points-label {
+  .card-body > .points > .points-label {
     text-transform: uppercase;
     font-size: 8px;
   }
