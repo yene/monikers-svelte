@@ -23,7 +23,7 @@
 </script>
 
 <div class="layout-root">
-	<div class="layout-content">
+	<div class="layout-content padding">
 		<h1 class="center">Monikers</h1>
 		<p>A dumb party game that respects your intelligence.</p>
 		Players <br><input type="number" pattern="\d*" min="2" bind:value={playerCount}><br>

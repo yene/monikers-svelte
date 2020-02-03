@@ -45,7 +45,6 @@ class ViewController: UIViewController {
 		let config = WKWebViewConfiguration()
 		config.userContentController = contentController
 		let webView = WKWebView(frame: .zero, configuration: config)
-		webView.backgroundColor = .green
 		view.addSubview(webView)
 		
 		webView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +53,7 @@ class ViewController: UIViewController {
 		webView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		webView.scrollView.bounces = false;
+		webView.scrollView.contentInsetAdjustmentBehavior = .never;
 		webView.isOpaque = false;
 		
 		if let url = URL(string: "http://localhost:9080/index.html") {

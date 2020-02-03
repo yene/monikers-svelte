@@ -11,7 +11,6 @@ gameStore.subscribe((gs) => {
 	if (gs.gameInProgress === false) {
 		return;
 	}
-	console.log('updated store, game in progress', gs);
 	clearTimeout(_debounce);
 	_debounce = setTimeout(saveGame, 2000);
 });

@@ -1,0 +1,6 @@
+// Config.xcconfig
+// Make sure these values are not overwritten in the build settings (bold means overwritten)
+// more examples at https://nshipster.com/xcconfig/
+
+PRODUCT_BUNDLE_IDENTIFIER = dev.yannick.monikers
+DEVELOPMENT_TEAM = NDJHDNKXD6

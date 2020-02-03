@@ -41,5 +41,10 @@ export function Timer(cbUpdate, cbEnd, delay) {
     timerId = window.setInterval(cbUpdate, 1000);
   };
 
+  this.reset = function() {
+    remaining = delay;
+    this.resume();
+  };
+
   this.resume();
 };

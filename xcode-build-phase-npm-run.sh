@@ -15,3 +15,4 @@ fi
 
 cd $SRCROOT/..
 npm run build
+echo "Finished npm run build, Xcode may not pick it up so fast try rebuilding again."

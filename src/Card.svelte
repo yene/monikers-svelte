@@ -7,6 +7,7 @@ export let Category;
 export let Points;
 export let choosen;
 export let guessed;
+export let PictureURL; // placebo to silence runtime
 </script>
 
 <div class="card" class:card-selected={choosen} class:green="{Points === 1}" class:blue="{Points === 2}" class:violet="{Points === 3}" class:red="{Points === 4}">
@@ -72,8 +73,8 @@ export let guessed;
     pointer-events: none;
     position: relative;
     /* 6x9 cm */
-    width: 240px;
-    height: 360px;
+    width: 288px;
+    height: 432px;
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -90,28 +91,28 @@ export let guessed;
     border: 1px solid rgba(43, 68, 209, 1);
     margin-left: -1px;
     margin-top: -1px;
-    width: 242px;
-    height: 362px;
+    width: 290px; /* card size + border */
+    height: 434px;
   }
 
   .card-body > h1 {
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 15px; /*26px;*/
     margin-bottom: 15px; /*23px;*/
-    font-weight: normal;
+    font-weight: bold;
     /*height: 46px;*/
     line-height: 23px;
   }
 
   .card-body  > p {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .card-body > .line {
     position: absolute;
     bottom: 100px;
-    left: 70px;
-    width: 100px;
+    left: 80px;
+    width: 130px;
     border-bottom: 2px dotted gray;
   }
 
@@ -119,8 +120,8 @@ export let guessed;
     text-transform: uppercase;
     position: absolute;
     bottom: 70px;
-    left: 20px;
-    width: 200px;
+    left: 0px;
+    width: 100%;
     /* color: #62A591; */
     font-size: 10px;
     letter-spacing: 2px;
@@ -129,7 +130,7 @@ export let guessed;
   .card-body > .points {
     position: absolute;
     bottom: 0;
-    left: 90px;
+    left: 115px;
     color: white;
     /* background-color: #62A591; */
     width: 60px;

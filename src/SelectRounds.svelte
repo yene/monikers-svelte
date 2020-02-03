@@ -68,20 +68,4 @@ ul {
   list-style: none;
 }
 
-.cancel-link {
-  color: rgba(102, 95, 124, 0.596);
-}
-
-.layout-root {
-	display: flex;
-	flex-direction: column;
-	min-height: 100%;
-	padding: 10px;
-}
-.layout-content {
-	flex: 1;
-}
-.layout-footer {
-	text-align: center;
-}
 </style>

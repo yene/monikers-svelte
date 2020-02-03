@@ -8,6 +8,7 @@ import ArrowRight from '../public/icons/arrow-right-regular.svg';
 import Check from '../public/icons/check-regular.svg';
 import Times from '../public/icons/times-regular.svg';
 import Swal from 'sweetalert2';
+import {roundsData} from './rounds.js';
 
 const dispatch = createEventDispatcher();
 
@@ -17,23 +18,40 @@ let cards = [];
 let currentTeam = 0; // 0 or 1
 let scoredCards = [[],[]];
 
-function turnDidEnd() {
+function changeTeam() {
   Swal.fire(
     'Other teams turn!',
     'Please hand over the device.',
-    'Ok'
-  );
-  var stop = scoreCards();
-  if (stop === true) {
-    return;
-  }
-  changeTeam();
-  startTimer();
-  console.log(scoredCards);
+  ).then(() => {
+    currentTeam = Number(!currentTeam);
+    cards = cards.filter((c) => {
+      return c.guessed !== true;
+    });
+    showCurrentTeam();
+  });
 }
 
-function changeTeam() {
-  currentTeam = Number(!currentTeam);
+function showCurrentTeam() {
+  setTimeout(() => {
+    nextCard(-1);
+  }, 0);
+
+  Swal.fire(
+    'Team ' + (currentTeam + 1),
+    roundsData[$gameStore.currentRound].desc,
+  ).then(() => {
+    timer.reset();
+  });
+}
+
+function endRound() {
+  timer.pause();
+  var team0points = scoredCards[0].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
+  var team1points = scoredCards[1].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
+  dispatch('scoreRound', {
+    cards: [scoredCards[0].length, scoredCards[1].length],
+    points: [team0points, team1points],
+  });
 }
 
 function scoreCards() {
@@ -41,30 +59,13 @@ function scoreCards() {
     return c.guessed === true;
   });
   scoredCards[currentTeam] = scoredCards[currentTeam].concat(sc);
-  cards = cards.filter((c) => {
-    return c.guessed !== true;
-  });
-  if (cards.length === 0) {
-    stopTimer();
-    // show subtotal score, and go to next turn
-    var team0points = scoredCards[0].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
-    var team1points = scoredCards[1].reduce((accumulator, currentValue) => accumulator + currentValue.Points, 0);
-    dispatch('scoreRound', {
-      cards: [scoredCards[0].length, scoredCards[1].length],
-      points: [team0points, team1points],
-    });
-    return true;
-  }
-  return false;
 }
 
-function checkGameEnd(e) {
+function areAllCardsGuessed() {
   var remaining = cards.filter((c) => {
     return c.guessed !== true;
   }).length;
-  if (remaining === 0) {
-    scoreCards();
-  }
+  return (remaining === 0);
 }
 
 var timerLabel = "&#10074;&#10074;";
@@ -76,27 +77,41 @@ onMount(() => {
   cards.forEach((c) => {
     c.choosen = false;
   });
-  window.setTimeout(startTimer, 500);
+  // TODO: current team has to be restored correcty
+  setupTimer();
+  showCurrentTeam();
 });
 
 function guessedCard(i, card) {
   // I have the array to tell which index I changed, I cannot change the object.
   cards[i].guessed = true;
-  checkGameEnd();
+  if (areAllCardsGuessed()) {
+    scoreCards();
+    endRound();
+    return;
+  }
   nextCard(i);
 }
 function nextCard(i) {
-  // TODO: find next card that is not guessed.
-  var nextcard = i+1;
-  if (nextcard >= cards.length) {
-    nextcard = 0;
+  // Find next card which is not guessed, first to the right, then from anywhere.
+  var cardIndex = cards.findIndex((c, j) => {
+    return c.guessed === false && j > i;
+  });
+  if (cardIndex === -1) {
+    cardIndex = cards.findIndex((c, i) => {
+      return c.guessed === false;
+    });
   }
-  var element = document.getElementById(nextcard);
-  element.scrollIntoView();
+  var element = document.getElementById('card-' + cardIndex);
+  var offset = element.offsetLeft;
+  // scrollTo does not work together with scroll-snap on iOS
+  var cardWidth = 288;
+  var margin = screen.width - cardWidth;
+  offset = offset - (margin/2);
+  element.parentNode.scrollTo({left: offset, behavior: 'smooth'});
 }
 
-function startTimer() {
-  console.log('starting timer');
+function setupTimer() {
   currentTime = $gameStore.timeLimit;
   timerLabel = currentTime;
   timer = new Timer(() => {
@@ -105,24 +120,33 @@ function startTimer() {
   },
   () => {
     timer.pause();
+    // reset time butotn labels
     currentTime = $gameStore.timeLimit;
     timerLabel = $gameStore.timeLimit;
-    turnDidEnd();
+    scoreCards();
+    changeTeam();
   }, 1000 * $gameStore.timeLimit);
 }
+
 function toggleTimer(e) {
   if (timer.isPaused()) {
     timerLabel= currentTime;
   } else {
     timerLabel = "&#10074;&#10074;";
   }
-  timer.toggle(); // TODO: toggle takes one second to show the time
+  timer.toggle();
   e.preventDefault();
 }
 function stopTimer() {
   timer.pause();
   currentTime = $gameStore.timeLimit;
   timerLabel = $gameStore.timeLimit;
+}
+function showImage(img) {
+  Swal.fire({
+    imageUrl: img,
+    imageHeight: 320,
+  });
 }
 </script>
 
@@ -134,8 +158,10 @@ function stopTimer() {
   <div class="layout-content">
     <div class="cards-row">
     {#each cards as card, i}
-      <div class="a-card" id={i}>
-
+      <div class="a-card" id={'card-' + i}>
+        {#if card.PictureURL}
+          <a class="card-picture" on:click={() => {showImage(card.PictureURL)}}><img src="/icons/image-solid.svg" width="40" height="40"></a>
+        {/if}
         <Card {...card} />
         {#if !card.guessed}
         <div class="button-row">
@@ -144,6 +170,7 @@ function stopTimer() {
         </div>
         {/if}
       </div>
+      <div class="space-between"></div>
     {/each}
     </div>
   </div>
@@ -151,26 +178,20 @@ function stopTimer() {
 
 <style>
 
-.card-guessed {
-  background-color:green;
-  opacity: 0.7;
-  pointer-events: none;
-  position: absolute;
-  color: limegreen;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
+.space-between {
+  min-width: 20px;
 }
 
 .button-correct {
   color: limegreen;
 }
+
 .button-next {
   color: deepskyblue;
 }
 
 .button-row {
-  margin-top: 5px;
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -186,27 +207,25 @@ function stopTimer() {
 
 .timer-btn {
   width: 40px;
+  margin-right: 15px;
   float: right;
 }
 .game-progress {
   line-height: 40px;
-  font-size: 20px;
+  font-size: 22px;
+  padding-left: 20px;
 }
 
 .cards-row {
   display: flex;
   padding: 10px;
   overflow: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 .a-card {
   position: relative;
-  margin-right: 20px;
   scroll-snap-align: center;
-}
-
-.a-card:last-child {
-  margin-right: 0;
 }
 
 /* hide scrollbar */
@@ -217,4 +236,12 @@ function stopTimer() {
 .cards-row::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
+
+.card-picture {
+  position: absolute;
+  bottom: 80px;
+  z-index: 99;
+  left: 20px;
+}
+
 </style>

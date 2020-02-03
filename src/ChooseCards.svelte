@@ -3,6 +3,7 @@ import Card from './Card.svelte';
 import {shuffle} from './utils.js';
 import { onMount } from 'svelte';
 import { createEventDispatcher } from 'svelte';
+import Swal from 'sweetalert2';
 const dispatch = createEventDispatcher();
 
 export let playerCount = null;
@@ -60,28 +61,39 @@ function nextPlayer() {
   offerCards();
   showNextPlayer = false;
 }
-
+function showImage(img) {
+  Swal.fire({
+    imageUrl: img,
+    imageHeight: 320,
+  });
+}
 </script>
 
 <div class="layout-root">
   <div class="layout-content">
-    <h3 class="center">Cards: {pickedCardCount}/5</h3>
+    <h1 class="center">Cards: {pickedCardCount}/5</h1>
 
     {#if showNextPlayer}
       <div class="center">Please hand to the next player, <br>so he can to pick his 5 cards.</div>
     {:else}
       <div class="cards-row">
       {#each offeredCards as card, i}
-        <div class="a-card" on:mousedown={(e) => {selectCard(e, i)}}>
-          <Card {...card} />
+        <div class="a-card" >
+          {#if card.PictureURL}
+            <a class="card-picture" on:click={() => {showImage(card.PictureURL)}}><img src="/icons/image-solid.svg" width="40" height="40"></a>
+          {/if}
+          <div on:mousedown={(e) => {selectCard(e, i)}}>
+            <Card {...card} />
+          </div>
         </div>
+        <div class="space-between"></div>
       {/each}
       </div>
     {/if}
   </div>
   {#if showNextPlayer}
   <div class="layout-footer">
-    <button class="nav-button" on:click={nextPlayer}>Ok</button>
+    <button class="nav-button" on:click={nextPlayer}>OK</button>
   </div>
   {/if}
 </div>
@@ -91,15 +103,14 @@ function nextPlayer() {
   display: flex;
   padding: 10px;
   overflow: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: x mandatory;
+}
+.space-between {
+  min-width: 20px;
 }
 .a-card {
-  margin-right: 20px;
   scroll-snap-align: center;
-}
-
-.a-card:last-child {
-  margin-right: 0;
+  position: relative;
 }
 
 /* hide scrollbar */
@@ -111,4 +122,10 @@ function nextPlayer() {
   display: none;  /* Safari and Chrome */
 }
 
+.card-picture {
+  position: absolute;
+  bottom: 10px;
+  z-index: 99;
+  left: 20px;
+}
 </style>

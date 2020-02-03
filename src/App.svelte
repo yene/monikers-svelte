@@ -7,8 +7,9 @@ import {roundsData} from './rounds.js';
 import GuessCards from './GuessCards.svelte';
 import Restore from './Restore.svelte';
 
+var totalScore = [];
+
 function storeAndNext(e) {
-	console.log(e.detail);
 	gameStore.mergeObject(e.detail);
 	gameStore.nextPage();
 }
@@ -29,6 +30,7 @@ function scoreRound(e) {
 		gameStore.mergeObject({
 			gameInProgress: false,
 		});
+		totalScore = scoreTotal();
 		return;
 	}
 
@@ -39,7 +41,6 @@ function scoreRound(e) {
 }
 
 function scoreTotal() {
-	console.log('scoreTotal called');
 	var total = {cards: [0,0], points: [0,0]};
 	for (var round of $gameStore.scores) {
 		total.cards[0] += round.cards[0];
@@ -52,6 +53,7 @@ function scoreTotal() {
 
 function restart() {
 	gameStore.reset();
+	window.location.reload();
 }
 </script>
 
@@ -63,9 +65,9 @@ function restart() {
 	<SelectRounds on:next={storeAndNext}/>
 {:else if $gameStore.page === 2}
 	<div class="layout-root">
-		<div class="layout-content">
-			<h1 class="center">Build 2 Teams</h1>
-			<div class="center">Every player is now going to pick<br> 5 out of 10 cards, for his team to guess.</div>
+		<div class="layout-content center padding">
+			<h1>Build 2 Teams</h1>
+			<div>Every player is now going to pick<br> 5 out of 10 cards, for his team to guess.</div>
 		</div>
 		<div class="layout-footer">
 			<button class="nav-button" on:click={gameStore.nextPage}>Next</button>
@@ -75,11 +77,11 @@ function restart() {
 	<ChooseCards playerCount={$gameStore.playerCount} on:next={storeAndNext} />
 {:else if $gameStore.page === 4}
 	<div class="layout-root">
-		<div class="layout-content">
-			<h1 class="center">Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
-			<div class="center">
+		<div class="layout-content center padding">
+			<h1>Round {$gameStore.currentRound + 1}: {roundsData[$gameStore.currentRound].title}</h1>
+			<div>
 				<p>{roundsData[$gameStore.currentRound].desc}</p>
-				<p>We play until all cards are guessed. <br>Then we score.</p>
+				<p>We play until all cards are guessed.</p>
 			</div>
 		</div>
 		<div class="layout-footer">
@@ -90,41 +92,44 @@ function restart() {
 {:else if $gameStore.page === 5}
 	<GuessCards cardpool={$gameStore.cards} on:scoreRound={scoreRound}/>
 {:else if $gameStore.page === 6}
-	<div class="center">
-		<h1>Game did end</h1>
-		<table class="pure-table pure-table-horizontal">
-			<thead>
-			<tr>
-				<th></th>
-				<th>Team 1</th>
-				<th>Team 2</th>
-			</tr>
-			</thead>
-			<tbody>
-			{#each $gameStore.scores as round, i}
-			<tr>
-				<td>Round {i+1}</td>
-				<td>{round.points[0]} points {round.cards[0]} cards</td>
-				<td>{round.points[1]} points {round.cards[1]} cards</td>
-			</tr>
-			{/each}
-			<tr>
-				<td><strong>Total</strong></td>
-				{#if scoreTotal().points[0] > scoreTotal().points[1]}
-				<td><strong>{scoreTotal().points[0]} points {scoreTotal().cards[0]} cards</strong></td>
-				<td>{scoreTotal().points[1]} points {scoreTotal().cards[1]} cards</td>
-				{:else if scoreTotal().points[0] < scoreTotal().points[1]}
-				<td>{scoreTotal().points[0]} points {scoreTotal().cards[0]} cards</td>
-				<td><strong>{scoreTotal().points[1]} points {scoreTotal().cards[1]} cards</strong></td>
-				{:else}
-				<td>{scoreTotal().points[0]} points {scoreTotal().cards[0]} cards</td>
-				<td>{scoreTotal().points[1]} points {scoreTotal().cards[1]} cards</td>
-				{/if}
-			</tr>
-			</tbody>
-		</table>
+	<div class="layout-root">
+		<div class="layout-content center padding">
+			<h1>Final Score</h1>
+			<table class="pure-table pure-table-horizontal">
+				<thead>
+				<tr>
+					<th></th>
+					<th>Team 1</th>
+					<th>Team 2</th>
+				</tr>
+				</thead>
+				<tbody>
+				{#each $gameStore.scores as round, i}
+				<tr>
+					<td>Round {i+1}</td>
+					<td>{round.cards[0]} cards<br>{round.points[0]} points</td>
+					<td>{round.cards[1]} cards<br>{round.points[1]} points</td>
+				</tr>
+				{/each}
+				<tr>
+					<td><strong>Total</strong></td>
+					{#if totalScore.points[0] > totalScore.points[1]}
+					<td><strong>{totalScore.cards[0]} cards<br>{totalScore.points[0]} points</strong></td>
+					<td>{totalScore.cards[1]} cards<br>{totalScore.points[1]} points</td>
+					{:else if totalScore.points[0] < totalScore.points[1]}
+					<td>{totalScore.cards[0]} cards<br>{totalScore.points[0]} points</td>
+					<td><strong>{totalScore.cards[1]} cards<br>{totalScore.points[1]} points</strong></td>
+					{:else}
+					<td>{totalScore.cards[0]} cards<br>{totalScore.points[0]} points</td>
+					<td>{totalScore.cards[1]} cards<br>{totalScore.points[1]} points</td>
+					{/if}
+				</tr>
+				</tbody>
+			</table>
+			<br>
+			<button class="nav-button" on:click={restart}>Restart</button>
+		</div>
 	</div>
-	<button class="nav-button" on:click={restart}>Restart</button>
 {:else}
 	How did you get here!
 {/if}
@@ -132,9 +137,10 @@ function restart() {
 
 <style>
 .app {
-	/* iphone 6s 375x667 = 1334x750 */
-	width: 375px;
-	height: 667px;
-	border: 1px solid black;
+
+}
+.pure-table {
+	min-width: 95%;
+	margin: 0 auto;
 }
 </style>

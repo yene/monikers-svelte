@@ -21,20 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AC88D3D1236DBF7000371F3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AC88D3C6236DBF7000371F3C /* GCDWebServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76FB20486AB0100D96B5E;
-			remoteInfo = "GCDWebServer (Mac)";
-		};
-		AC88D3D3236DBF7000371F3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AC88D3C6236DBF7000371F3C /* GCDWebServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E2DDD1F61BE69EE4002CE867;
-			remoteInfo = "GCDWebServer (iOS)";
-		};
 		AC88D3D9236DBF7000371F3C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AC88D3C6236DBF7000371F3C /* GCDWebServer.xcodeproj */;
@@ -62,6 +48,7 @@
 		AC5245F1238E811E00A434D0 /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; name = public; path = ../public; sourceTree = "<group>"; };
 		AC88D3C6236DBF7000371F3C /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = "GCDWebServer-3.5.3/GCDWebServer.xcodeproj"; sourceTree = "<group>"; };
 		AC88D3E2236DC07A00371F3C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		ACA44B5B23DF29C100478236 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		ACD89330222822C60073EC6E /* Monikers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monikers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD89333222822C60073EC6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD89335222822C60073EC6E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,8 +77,6 @@
 		AC88D3C7236DBF7000371F3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC88D3D2236DBF7000371F3C /* GCDWebServer */,
-				AC88D3D4236DBF7000371F3C /* GCDWebServer.app */,
 				AC88D3DA236DBF7000371F3C /* GCDWebServers.framework */,
 			);
 			name = Products;
@@ -100,6 +85,7 @@
 		ACD89327222822C50073EC6E = {
 			isa = PBXGroup;
 			children = (
+				ACA44B5B23DF29C100478236 /* Config.xcconfig */,
 				AC5245F1238E811E00A434D0 /* public */,
 				AC88D3C6236DBF7000371F3C /* GCDWebServer.xcodeproj */,
 				ACD89332222822C60073EC6E /* Webview Bridge */,
@@ -207,20 +193,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		AC88D3D2236DBF7000371F3C /* GCDWebServer */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = GCDWebServer;
-			remoteRef = AC88D3D1236DBF7000371F3C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		AC88D3D4236DBF7000371F3C /* GCDWebServer.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = GCDWebServer.app;
-			remoteRef = AC88D3D3236DBF7000371F3C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		AC88D3DA236DBF7000371F3C /* GCDWebServers.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -260,7 +232,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# dont forget chmod+x\n$SRCROOT/../xcode-build-phase-npm-run.sh\n";
+			shellScript = "$SRCROOT/../xcode-build-phase-npm-run.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -298,6 +270,7 @@
 /* Begin XCBuildConfiguration section */
 		ACD89340222822C80073EC6E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACA44B5B23DF29C100478236 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -359,6 +332,7 @@
 		};
 		ACD89341222822C80073EC6E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACA44B5B23DF29C100478236 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -417,7 +391,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NDJHDNKXD6;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Webview Bridge/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -425,7 +398,6 @@
 					"@executable_path/Frameworks",
 				);
 				NDEBUG = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.yannick.monikers;
 				PRODUCT_NAME = Monikers;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -437,7 +409,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NDJHDNKXD6;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Webview Bridge/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -445,7 +416,6 @@
 					"@executable_path/Frameworks",
 				);
 				NDEBUG = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.yannick.monikers;
 				PRODUCT_NAME = Monikers;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
