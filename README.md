@@ -2,7 +2,7 @@
 
 This is an implementation of the game [Monikers](http://www.monikersgame.com) with Svelte 3. Monikers is a party game which can be played by passing around a single phone.
 
-[![poster](poster.png)](video.mp4)
+[![poster](poster.png)](https://shiro.ch/monikers-video.mp4)
 
 ![artwork](monikers-artwork.jpg)
 
