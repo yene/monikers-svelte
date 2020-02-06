@@ -1,7 +1,7 @@
 let rounds = [
-  {title: 'Any Words', desc: 'Use ANY WORDS except the name itself, \nincluding other card text.', checked: true},
-  {title: 'One Word', desc: 'Use only ONE WORD.', checked: true},
-  {title: 'No Language', desc: 'NO LANGUAGE allowed, \nonly physical gestures and imitations.', checked: true},
+  {title: 'Any Words', desc: 'Use any words, sounds, or gestures except the name itself, including the clue text on the card.', checked: true},
+  {title: 'One Word', desc: 'Use only one word.', checked: true},
+  {title: 'No Language', desc: 'NO LANGUAGE allowed, \nonly physical gestures and imitations, sound effects are ok.', checked: true},
   {title: 'Hands', desc: 'Only use your hands.', checked: false},
   {title: 'Noise', desc: 'No words, no movement, \njust a singular noise.', checked: false},
 ];
